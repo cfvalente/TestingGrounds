@@ -3,6 +3,7 @@
 #include "TestingGrounds.h"
 #include "Animation/AnimInstance.h"
 #include "TestingGroundsProjectile.h"
+#include "Components/PawnNoiseEmitterComponent.h"
 #include "FireComponent.h"
 
 
@@ -12,6 +13,7 @@ UFireComponent::UFireComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
+	Emitter = CreateDefaultSubobject<UPawnNoiseEmitterComponent>(TEXT("Emitter"));
 
 	// ...
 }
@@ -67,6 +69,7 @@ void UFireComponent::Fire()
 		if (FireSound != NULL)
 		{
 			UGameplayStatics::PlaySoundAtLocation(this, FireSound, Parent->GetActorLocation());
+			Emitter->MakeNoise(this->GetOwner(), 1.0f, this->GetComponentLocation());
 		}
 
 		// try and play a firing animation if specified

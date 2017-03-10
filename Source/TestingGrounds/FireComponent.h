@@ -40,4 +40,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	bool IsFirstPerson = false;
+
+private:
+	UPawnNoiseEmitterComponent *Emitter;
 };
